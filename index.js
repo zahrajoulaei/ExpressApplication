@@ -8,7 +8,7 @@ const usersRouter = require('./routes/users');
 const commentsRouter = require('./routes/comments'); 
 
 const app = express();
-const port = 3001; 
+const port = 3000; 
 
 // Middleware for parsing request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
