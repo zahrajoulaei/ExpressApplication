@@ -1,16 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Welcome to the Home Page</h1>
-    <nav>
-        <a href="/about">About</a>
-        <a href="/form">Form</a>
-    </nav>
-    <img src="/image.png">
-    <br>
-    <button onclick="window.location.href='/download'">Download Image</button>
+    <div class="container">
+        <h1>Zahra To-Do App</h1>
+        <form action="/api/todos" method="POST">
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="description" placeholder="Description" required></textarea>
+            <button type="submit">Add To-Do</button>
+        </form>
+        <form action="/api/users" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <button type="submit">Add User</button>
+        </form>
+        <form action="/api/comments" method="POST">
+            <input type="number" name="userId" placeholder="User ID" required>
+            <input type="number" name="todoId" placeholder="To-Do ID" required>
+            <textarea name="content" placeholder="Comment" required></textarea>
+            <button type="submit">Add Comment</button>
+        </form>
+        <div class="todos">
+            <% todos.forEach(todo => { %>
+                <div class="todo">
+                    <div>
+                        <strong><a href="/api/todos/<%= todo.id %>"><%= todo.title %></a></strong>
+                        <p><%= todo.description %></p>
+                    </div>
+                    <form action="/api/todos/<%= todo.id %>?_method=DELETE" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            <% }); %>
+        </div>
+    </div>
 </body>
 </html>
