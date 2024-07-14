@@ -7,9 +7,17 @@ let currentCommentId = 1;
 // Middleware for generating unique IDs
 const generateCommentId = () => currentCommentId++;
 
-// GET all comments
+// GET all comments or filter by userId or todoId
 router.get('/', (req, res) => {
-    res.json(comments);
+    const { userId, todoId } = req.query;
+    let filteredComments = comments;
+    if (userId) {
+        filteredComments = filteredComments.filter(comment => comment.userId === parseInt(userId, 10));
+    }
+    if (todoId) {
+        filteredComments = filteredComments.filter(comment => comment.todoId === parseInt(todoId, 10));
+    }
+    res.json(filteredComments);
 });
 
 // POST a new comment
